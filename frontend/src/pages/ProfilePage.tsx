@@ -11,6 +11,7 @@ interface Todo {
   status: string;
   priority?: string;
   dueDate?: string;
+  createdAt?: string;
 }
 
 interface ProfileData {
@@ -92,15 +93,23 @@ const ProfilePage = () => {
               <li key={todo.id} className="p-3 bg-muted rounded-md shadow-sm">
                 <h3 className="text-lg font-medium text-card-foreground">{todo.title}</h3>
                 {todo.description && <p className="text-sm text-muted-foreground mt-1">{todo.description}</p>}
-                <div className="mt-2 flex justify-between items-center text-xs">
-                  <span className={`px-2 py-0.5 rounded-full font-semibold ${todo.status === 'COMPLETED' ? 'bg-green-100 text-green-700' : todo.status === 'PENDING' ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-700'}`}>
-                    {todo.status}
-                  </span>
+                <div className="mt-2 flex flex-wrap gap-2 items-center text-xs">
+                  <span className={`px-2 py-0.5 rounded-full font-semibold ${todo.status === 'COMPLETED' ? 'bg-green-100 text-green-700' : todo.status === 'PENDING' ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-700'}`}>{todo.status}</span>
                   {todo.priority && <span className={`px-2 py-0.5 rounded-full ${todo.priority === 'HIGH' ? 'bg-red-100 text-red-700' : todo.priority === 'MEDIUM' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}`}>{todo.priority}</span>}
+                  {todo.dueDate && (
+                    <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-800">
+                      Bitiş: {new Date(todo.dueDate).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </span>
+                  )}
+                  {todo.createdAt && (
+                    <span className="px-2 py-0.5 rounded-full bg-gray-50 text-gray-800">
+                      Oluşturulma: {new Date(todo.createdAt).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </span>
+                  )}
                 </div>
                 <div className="flex justify-end gap-2">
-                  <Button className="mt-4 px-4 py-2">Düzenle</Button> 
-                  <Button className="mt-4 px-4 py-2">Sil</Button> 
+                  <Button className="mt-4 px-4 py-2">Düzenle</Button>
+                  <Button className="mt-4 px-4 py-2">Sil</Button>
                 </div>
               </li>
             ))}
