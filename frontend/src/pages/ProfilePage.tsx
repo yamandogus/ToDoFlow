@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { api } from '@/services/api';
+import { Button } from '@/components/ui/button';
 
 interface Todo {
   id: string;
@@ -97,6 +98,10 @@ const ProfilePage = () => {
                   </span>
                   {todo.priority && <span className={`px-2 py-0.5 rounded-full ${todo.priority === 'HIGH' ? 'bg-red-100 text-red-700' : todo.priority === 'MEDIUM' ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}`}>{todo.priority}</span>}
                 </div>
+                <div className="flex justify-end gap-2">
+                  <Button className="mt-4 px-4 py-2">Düzenle</Button> 
+                  <Button className="mt-4 px-4 py-2">Sil</Button> 
+                </div>
               </li>
             ))}
           </ul>
@@ -106,6 +111,8 @@ const ProfilePage = () => {
         <div className="bg-card shadow-md rounded-lg p-6">
           <h2 className="text-2xl font-semibold mb-4">Görevlerim (0)</h2>
           <p className="text-sm text-muted-foreground">Görev bulunamadı.</p>
+          <button className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">Yeni Görev Oluştur</button>
+          
         </div>
       )}
       
