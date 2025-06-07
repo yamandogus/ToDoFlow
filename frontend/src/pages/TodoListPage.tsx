@@ -1,8 +1,10 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useNavigate } from "react-router-dom"
 
 const TodoListPage = () => {
+  const navigate = useNavigate();
   const categories = [
     { id: "backend", name: "Backend", color: "#4A90E2", count: 5 },
     { id: "frontend", name: "Frontend", color: "#50E3C2", count: 3 },
@@ -122,7 +124,11 @@ const TodoListPage = () => {
 
             <div className="grid gap-4">
               {todosByCategory[category.id as keyof typeof todosByCategory]?.map((todo) => (
-                <Card key={todo.id} className="hover:shadow-xl transition-shadow shadow-lg">
+                <Card 
+                  key={todo.id} 
+                  className="hover:shadow-xl transition-shadow shadow-lg cursor-pointer"
+                  onClick={() => navigate(`/todos/${todo.id}`)}
+                >
                   <CardHeader className="pb-3">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
                       <CardTitle className="text-base sm:text-lg">{todo.title}</CardTitle>
@@ -148,8 +154,8 @@ const TodoListPage = () => {
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-sm text-muted-foreground">
                       <span>Bitiş Tarihi: {new Date(todo.due_date).toLocaleDateString('tr-TR')}</span>
                       <div className="flex gap-2">
-                        <button className="text-blue-600 hover:underline text-sm">Düzenle</button>
-                        <button className="text-red-600 hover:underline text-sm">Sil</button>
+                        <button className="text-blue-600 hover:underline text-sm" onClick={e => e.stopPropagation()}>Düzenle</button>
+                        <button className="text-red-600 hover:underline text-sm" onClick={e => e.stopPropagation()}>Sil</button>
                       </div>
                     </div>
                   </CardContent>
